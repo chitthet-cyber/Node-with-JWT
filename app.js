@@ -21,14 +21,15 @@ app.use(cookieParser());
 // database connection
 const dbURI =
   'mongodb+srv://ninja333:ninja333@ninja-jwt.lsnn8.mongodb.net/jwt-tut?retryWrites=true&w=majority';
-mongoose
-  .connect(dbURI, {
+mongoose.connect(
+  dbURI,
+  {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
-  })
-  .then((result) => app.listen(3000))
-  .catch((err) => console.log(err));
+  },
+  console.log('Connected to db')
+);
 
 // routes
 app.get('*', checkUser);
@@ -50,3 +51,6 @@ app.use(authRoute);
 //   // res.json(cookie);
 //   res.json(cookie.newUser);
 // });
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, console.log(`Server is running at port : ${PORT}`));
